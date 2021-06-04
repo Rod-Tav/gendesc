@@ -93,6 +93,7 @@ function parseHTML() {
 function parseText() {
     var src = document.getElementById("source").value.trim().split(/\n/);
     var ele = [];
+    recordList = [];
     var q = 0;
     var readMode = false;
     for (var p = 0; p < src.length; p++) {
@@ -146,8 +147,8 @@ class Record {
         this.lap1 = e;
         this.lap2 = f;
         this.lap3 = g;
-        this.shroom = h.split('-');
-        this.coin = i.split('-');
+        this.coin = h.split('-');
+        this.shroom = i.split('-');
         this.driver = j;
         this.vehicle = k;
         this.tires = l;
@@ -199,7 +200,7 @@ class Record {
     }
     printDesc() {
         var desc = `Date: ${this.printDate(this.date)}
-${this.diff} improvement over previous WR: ${this.printTime(this.previousTime)} by ${this.previousPlayer} on ${this.printDate(this.previousDate)} ${this.previousDays}
+${this.diff} improvement over previous WR: ${this.printTime(this.previousTime)} by ${this.previousPlayer} on ${this.previousDate}${this.previousDays}
 
 Combo: ${this.driver} / ${this.vehicle} / ${this.tires} / ${this.glider}
 Splits: ${this.lap1} - ${this.lap2} - ${this.lap3}
@@ -224,13 +225,16 @@ Recorded by ${recorder}`;
         this.previousDate = rec.date;
         var last = (this.date - this.previousDate) / 86400000;
         if (last > 1) {
-            this.previousDays = "(lasted " + last + " days)";
+            this.previousDate = this.printDate(this.previousDate);
+            this.previousDays = " (lasted " + last + " days)";
         } else if (last == 1) {
-            this.previousDays = "(lasted " + last + " day)";
+            this.previousDate = this.printDate(this.previousDate);
+            this.previousDays = " (lasted " + last + " day)";
         } else if (this.previousDays == 0) {
-            this.previousDays = "on the same day";
+            this.previousDate = "the same day"
+            this.previousDays = "";
         } else {
-            this.previousDays = "?";
+            this.previousDays = " (?)";
         }
         this.previousTime = rec.time;
         var diff = this.cnvTime(this.previousTime) - this.cnvTime(this.time);
@@ -254,10 +258,10 @@ class BabyParkRecord extends Record {
         this.lap5 = l5;
         this.lap6 = l6;
         this.lap7 = l7;
-        this.shroom = h.split('-');
+        this.coin = h.split('-');
         this.driver = i;
         this.vehicle = j;
-        this.coin = k.split('-');
+        this.shroom = k.split('-');
         this.tires = l;
         this.glider = m;
         this.previousDate = null;
@@ -268,7 +272,7 @@ class BabyParkRecord extends Record {
     }
     printDesc() {
         var desc = `Date: ${this.printDate(this.date)}
-${this.diff} improvement over previous WR: ${this.printTime(this.previousTime)} by ${this.previousPlayer} on ${this.printDate(this.previousDate)} ${this.previousDays}
+${this.diff} improvement over previous WR: ${this.printTime(this.previousTime)} by ${this.previousPlayer} on ${this.previousDate}${this.previousDays}
 
 Combo: ${this.driver} / ${this.vehicle} / ${this.tires} / ${this.glider}
 Splits: ${this.lap1} - ${this.lap2} - ${this.lap3} - ${this.lap4} - ${this.lap5} - ${this.lap6} - ${this.lap7}
