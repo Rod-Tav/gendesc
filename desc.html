@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Description Generator for 8DXRecords</title>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="desc.css">
+    <script type="text/javascript" src="desc.js"></script>
+</head>
+
+<body bgcolor="#101010" text="#ddd">
+    <p>
+        paste HTML source code (&lt;tr&gt; blocks of two WRs) from mkwrs.com/mk8dx/display.php?track=***<br>
+        <textarea id="source" rows="20" cols="100"></textarea><br>
+        <input type="button" value="clear" onclick="clearTextarea();" />
+    </p>
+
+    <table style="margin-left:320px;">
+        <tr>
+            <td width="100" align="center">
+                <span>Recorder</span><br>
+                <select id="recorder" autocomplete="off">
+                    <option value="Pii">Pii</option>
+                    <option value="Azuza">Azuza</option>
+                    <option value="Braydon">Braydon</option>
+                    <option value="CC">CC</option>
+                    <option value="Mick">Mick</option>
+                    <option value="MK8DXLive">MK8DXLive</option>
+                    <option value="Ro">Ro</option>
+                    <option value="Rod">Rod</option>
+                    <option value="RTAT120">RTAT120</option>
+                    <option value="Technical">Technical</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="button" value="generate" onclick="main();" />
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        Description<br>
+        <textarea id="description" rows="20" cols="100">This page doesn't work in Internet Explorer</textarea>
+        <br>
+        <input type="button" value="copy" onclick="copy_from_textarea();" />
+    </p>
+
+</body>
+
+</html>
