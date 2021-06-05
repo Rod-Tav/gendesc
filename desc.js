@@ -117,7 +117,21 @@ function parseText() {
                 ele = [];
             }
         } else if (readMode) {
-            if (q == 1 || q == 2) {
+            if (q == 1) {
+                if (src[p].trim().match(/<td.*><a .+>.+<\/a>.*<\/td>/)) {
+                    if (src[p].trim().match(/<td.*><a .+>.+<\/a> <img.*><\/td>/)) {
+                        ele.push(src[p].trim().match(/<td.*><a .+>(.+)<\/a> <img.*><\/td>/)[1]);
+                    } else {
+                        ele.push(src[p].trim().match(/<td.*><a .+>(.+)<\/a><\/td>/)[1]);
+                    }
+                } else {
+                    if (src[p].trim().match(/<td.*>(.+) <img.*><\/td>/)) {
+                        ele.push(src[p].trim().match(/<td.*>(.+) <img.*><\/td>/)[1]);
+                    } else {
+                        ele.push(src[p].trim().match(/<td.*>(.+)<\/td>/)[1]);
+                    }
+                }
+            } else if (q == 2) {
                 if (src[p].trim().match(/<td.*><a .+>.+<\/a><\/td>/)) {
                     ele.push(src[p].trim().match(/<td.*><a .+>(.+)<\/a><\/td>/)[1]);
                 } else {
@@ -198,14 +212,31 @@ class Record {
         var year = dt.getFullYear();
         return month + " " + suffix(day) + ", " + year;
     }
+    printLap() {
+        return this.lap1 + " - " + this.lap2 + " - " + this.lap3
+    }
+    printCoin() {
+        var coins = "";
+        for (const sec of this.coin) {
+            coins = coins + sec + " - ";
+        }
+        return coins.slice(0, -3);
+    }
+    printShroom() {
+        var shrooms = "";
+        for (const sec of this.shroom) {
+            shrooms = shrooms + sec + " - ";
+        }
+        return shrooms.slice(0, -3);
+    }
     printDesc() {
         var desc = `Date: ${this.printDate(this.date)}
 ${this.diff} improvement over previous WR: ${this.printTime(this.previousTime)} by ${this.previousPlayer} on ${this.previousDate}${this.previousDays}
 
 Combo: ${this.driver} / ${this.vehicle} / ${this.tires} / ${this.glider}
-Splits: ${this.lap1} - ${this.lap2} - ${this.lap3}
-Mushrooms: ${this.shroom[0]} - ${this.shroom[1]} - ${this.shroom[2]}
-Coins: ${this.coin[0]} - ${this.coin[1]} - ${this.coin[2]}
+Splits: ${this.printLap()}
+Mushrooms: ${this.printShroom()}
+Coins: ${this.printCoin()}
 
 Player's WR profile: https://mkwrs.com/mk8dx/profile.php?player=${this.player}
 
@@ -270,27 +301,7 @@ class BabyParkRecord extends Record {
         this.previousDays = 0;
         this.diff = 0;
     }
-    printDesc() {
-        var desc = `Date: ${this.printDate(this.date)}
-${this.diff} improvement over previous WR: ${this.printTime(this.previousTime)} by ${this.previousPlayer} on ${this.previousDate}${this.previousDays}
-
-Combo: ${this.driver} / ${this.vehicle} / ${this.tires} / ${this.glider}
-Splits: ${this.lap1} - ${this.lap2} - ${this.lap3} - ${this.lap4} - ${this.lap5} - ${this.lap6} - ${this.lap7}
-Mushrooms: ${this.shroom[0]} - ${this.shroom[1]} - ${this.shroom[2]} - ${this.shroom[3]} - ${this.shroom[4]} - ${this.shroom[5]} - ${this.shroom[6]}
-Coins: ${this.coin[0]} - ${this.coin[1]} - ${this.coin[2]} - ${this.coin[3]} - ${this.coin[4]} - ${this.coin[5]} - ${this.coin[6]}
-
-Player's WR profile: https://mkwrs.com/mk8dx/profile.php?player=${this.player}
-
-See all the current and past WRs for MK8DX at : https://mkwrs.com/mk8dx
-See various top 10 leaderboards for MK8DX at : http://mkleaderboards.com/
-Discuss Time Trials in the MKLeaderboards Discord server! : https://discord.gg/NHrtWQq
-
-Enter the MK8DX time trial competition at : http://www.mariokartplayers.com/mk8
-Join the MK8DX online competitive scene at : http://www.mariokartcentral.com/
-
-If you want to watch WR videos for the Wii U version of MK8, refer to: https://www.youtube.com/user/MK8Records
-
-Recorded by ${recorder}`;
-        return desc;
+    printLap() {
+        return this.lap1 + " - " + this.lap2 + " - " + this.lap3 + " - " + this.lap4 + " - " + this.lap5 + " - " + this.lap6 + " - " + this.lap7
     }
 }
