@@ -208,7 +208,7 @@ class Record {
             "November",
             "December"];
         var month = months[dt.getMonth()];
-        var day = dt.getDate();
+        var day = dt.getUTCDate();
         var year = dt.getFullYear();
         return month + " " + suffix(day) + ", " + year;
     }
