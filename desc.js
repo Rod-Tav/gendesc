@@ -154,7 +154,7 @@ function outputDesc() {
 
 class Record {
     constructor(a, b, c, d, e, f, g, h, i, j, k, l, m) {
-        this.date = new Date(a);
+        this.date = new Date(Date.UTC(a));
         this.time = b.split(/'|"/).map(Number);
         this.player = c;
         this.nation = d;
@@ -278,7 +278,7 @@ Recorded by ${recorder}`;
 class BabyParkRecord extends Record {
     constructor(a, b, c, d, l1, l2, l3, l4, l5, l6, l7, h, i, j, k, l, m) {
         super(null, "0\'00\"000", null, null, null, null, null, "0-0-0", "0-0-0", null, null, null, null, null);
-        this.date = new Date(a);
+        this.date = new Date(Date.UTC(a));
         this.time = b.split(/'|"/).map(Number);
         this.player = c;
         this.nation = d;
