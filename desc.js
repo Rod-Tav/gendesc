@@ -92,7 +92,7 @@ function parseHTML() {
 
 function parseText() {
     var srcWithPatch = document.getElementById("source").value.trim().split(/\n/);
-    var src = srcWithPath.replace(/<a[^>]*>.*?<\/a>/g, "");
+    var src = srcWithPatch.replace(/<a[^>]*>.*?<\/a>/g, "");
     var ele = [];
     recordList = [];
     var q = 0;
