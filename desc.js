@@ -95,7 +95,7 @@ function parseText() {
     console.log(srcWithPatch);
     var src = srcWithPatch.map(function(line) {
         return line.replace(/<a[^>]*>.*?<\/a>/g, "");
-    }).join("\n");
+    });
     console.log(src);
     var ele = [];
     recordList = [];
