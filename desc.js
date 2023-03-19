@@ -92,11 +92,9 @@ function parseHTML() {
 
 function parseText() {
     var srcWithPatch = document.getElementById("source").value.trim().split(/\n/);
-    console.log(srcWithPatch);
     var src = srcWithPatch.map(function(line) {
-        return line.replace(/<a[^>]*>.*?<\/a>/g, "");
-    });
-    console.log(src);
+    return line.replace(/<a href="patchinfo\.php"><img src="buff\.png" title="Stats Buffed from Version 2\.3\.0" style="vertical-align:bottom"><\/a>/g, "");
+});
     var ele = [];
     recordList = [];
     var q = 0;
